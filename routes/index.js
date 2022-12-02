@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-require("../backend/models/connexion");
 const Place = require("../models/places");
 const { checkBody } = require("../modules/checkBody");
 
@@ -9,7 +8,7 @@ router.post("/places", (req, res) => {
     res.json({ result: false, error: "Missing or empty fields" });
     return;
   }
-  // 
+  //
   Place.findOne({
     latitude: req.body.latitude,
     longitude: req.body.longitude,
@@ -20,16 +19,16 @@ router.post("/places", (req, res) => {
       return;
     }
 
-const newMarqueur = new Place({
-  nickname: req.body.nickname,
-  name: req.body.name,
-  latitude: req.body.latitude,
-  longitude: req.body.longitude,
-});
+    const newMarqueur = new Place({
+      nickname: req.body.nickname,
+      name: req.body.name,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+    });
 
-newMarqueur.save().then((userplace) => {
-  res.json({ result: true, place: userplace });
-});
+    newMarqueur.save().then((userplace) => {
+      res.json({ result: true, place: userplace });
+    });
   });
 });
 
@@ -56,13 +55,13 @@ router.delete("/places", (req, res) => {
         return;
       }
 
-  Place.deleteOne({
-    nickname: req.body.nickname,
-    name: req.body.name,
-  }).then(() => {
-    res.json({ result: true });
-  });
-}
+      Place.deleteOne({
+        nickname: req.body.nickname,
+        name: req.body.name,
+      }).then(() => {
+        res.json({ result: true });
+      });
+    }
   );
 });
 
